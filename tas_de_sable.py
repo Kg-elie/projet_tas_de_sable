@@ -1,4 +1,3 @@
-
 #########################################
 # groupe BI TD 1
 # Elie KANGA
@@ -7,11 +6,10 @@
 #  https://github.com/uvsq22101259/projet_tas_de_sable
 #########################################
 
-from tkinter import *
-fenetre = TK()
 #########################################
 # importation librairie                 #
 #########################################
+import tkinter as tk
 
 #########################################
 # definitions des constantes            #
@@ -30,4 +28,6 @@ fenetre = TK()
 
 #########################################
 # programme principal
+racine = tk.Tk()
 
+racine.mainloop()
