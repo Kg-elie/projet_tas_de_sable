@@ -2,3 +2,4 @@
 
 Ce premier projet a pour objectif de vous apprendre à écrire un programme de manière autonome. Le sujet vous donne des indications sur la manière de construire votre programme et il doit être lu attentive- ment. Ce premier projet n’est pas noté, mais il vous prépare au deuxième projet du semestre qui sera évalué lors d’une soutenance. Ces deux projets se font par groupe de 3 ou 4. Les membres de votre groupe sont choisis par votre chargé de TD, et vous ne devez pas en changer durant le semestre.
 Le projet doit être écrit en Python. Les compétences techniques attendues sont celles du cours IN100 du premier semestre. Quelques compléments seront apportés en cours sur des points précis de programma- tion en Python. Vous devez utiliser les outils de programmation étudiés en IN100, à savoir le gestionnaire de version git associé au dépôt GitHub, le linter flake8 qui doit être installé avec votre environnement VSCode, et le debugger fourni avec VSCode.
+test
