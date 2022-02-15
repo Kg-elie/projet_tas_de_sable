@@ -41,9 +41,13 @@ def grillage(n,taille):
 #########################################
 # programme principal
 racine = tk.Tk()
+
 canvas = tk.Canvas(racine,width= WIDTH, height= HEIGHT, bg= "black")
 canvas.grid(column=0,row=0)
 grillage(60,600)
+
+bouton = tk.Button(racine,text="bouton")
+bouton.grid(column=0,row=1)
 
 
 racine.mainloop()
