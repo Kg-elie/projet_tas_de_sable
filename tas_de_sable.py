@@ -6,4 +6,4 @@
 # Iram MADANI FOUATIH
 #  https://github.com/uvsq22101259/projet_tas_de_sable
 #########################################
-print("HIg")
+print("Hello")  
