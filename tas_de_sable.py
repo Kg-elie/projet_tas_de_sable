@@ -30,14 +30,14 @@ l = []
 def grillage(n,taille):
     """ cree une grille de n^2 case"""
     rythme = taille // n
-    x = rythme
-    y = rythme 
+    x = 0
+    y = 0
     
     for i in range (n):
-        canvas.create_line((1,y),(taille,y), fill= "white")
-    
-        canvas.create_line((x,1),(x,taille), fill= "white")
-        x += rythme
+        x = 0
+        for j in range(n):
+            canvas.create_rectangle((x,y),(x+rythme,y+rythme), fill= "red",outline="white" )
+            x += rythme
         y += rythme
        
 
