@@ -52,7 +52,7 @@ def configuration(n):
     for i in range(n):
         a = []
         for j in range(n):
-            a.append(rd.randint(0,5))
+            a.append(rd.randint(0,3))
         l.append(list(a))
     
     
