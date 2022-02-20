@@ -23,7 +23,7 @@ WIDTH = 600
 #########################################
 #  definitions des variables            #
 #########################################
-ligne = 35
+ligne = 100
 l = []
 case_id = []
 #########################################
@@ -36,11 +36,11 @@ def grillage(n,taille):
         case_id = []
     
     rythme = taille // n
-    x = 0
-    y = 0
+    x = 2
+    y = 2
     
     for i in range (n):
-        x = 0
+        x = 2
         for j in range(n):
             case_id.append(canvas.create_rectangle((x,y),(x+rythme,y+rythme), fill="black" ,outline="white", width= 2 ))
             x += rythme
@@ -93,7 +93,7 @@ def construction_terrain(n,taille):
 
     configuration(n)
     grillage(n,taille)
-    placement(n,taille)
+    #placement(n,taille)
 
     
 def change_couleurs():
