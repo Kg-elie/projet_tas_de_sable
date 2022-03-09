@@ -58,7 +58,9 @@ def grillage(n,taille):
     
     coloriage()
 
-
+##########################################################################################################
+# configuration
+#####################################################
 def configuration(n):
     """remplie la grille d'une configuration aléatoire"""
     global matrice 
@@ -69,21 +71,75 @@ def configuration(n):
             a.append(rd.randint(0,4))
         matrice.append(list(a))
 
-          
 
-def  placement(n,taille):
-    """place les nombres de grain de sables sur les widgets"""
-    rythme = taille // n
-    x = 0
-    y = 3
+def configuration_geometrique(n):
+    """cree une configuration ou la case du centre est surcharger a matrice'infini et ne fait que donner des grains"""
+    global matrice, text
     
-    for i in matrice:
-        x = 3
-        for j in i:
-            canvas.create_text((x+(rythme//2),y+(rythme//2)), text= j,fill="white")
-            x += rythme
-        y+= rythme
+    matrice = []
+    for i in range(n):
+        a = []
+        for j in range(n):
+            if i == n//2 and j == n//2:
+                a.append(int(text.get()))
+            else:
+                a.append(0) 
+        matrice.append(list(a))
 
+
+def config_creatif(n):
+    """permet de creer une configuration nul"""
+    global matrice 
+    matrice = []
+    for i in range(n):
+        a = []
+        for j in range(n):
+            a.append(0) 
+        matrice.append(list(a))
+
+
+def config_stable(n):
+    """permet de creer une configuration satble avec 4 grains par case"""
+    global matrice 
+    matrice = []
+    for i in range(n):
+        a = []
+        for j in range(n):
+            a.append(4) 
+        matrice.append(list(a))
+
+
+def config_indentity(n):
+    """soustrait la matrice actuelle a elle meme"""
+    global matrice
+
+    fic = open("identity.txt","r")
+    ligne = fic.readline()
+    N = int(ligne)
+    a = []
+    b= []
+    matrice1 = []
+    for i in fic:
+        b.append(int(i))
+        if len(b)==N:
+            a.append(b)
+            b = []
+    matrice1 = list(a)
+    matrice = []
+    for i in range(n):
+        a = []
+        for j in range(n):
+            a.append(8 - matrice1[i][j]) 
+        matrice.append(list(a))
+    
+
+##########################################################################################################
+
+
+##########################################################################################################
+
+# construction des terrain 
+#####################################################
 
 def construction_terrain(n,taille):
     """ construire le terrain à partir de plusieus fonctions"""
@@ -91,7 +147,7 @@ def construction_terrain(n,taille):
 
     configuration(n)
     grillage(n,taille)
-    #placement(n,taille)
+   
 
 
 
@@ -101,27 +157,33 @@ def construction_terrain_geometrique(n,taille):
 
     configuration_geometrique(n)
     grillage(n,taille)
-    #placement(n,taille)
+   
 
 
 def construction_terrain_nul(n,taille):
     """ construire un terrain nul à partir de plusieus fonctions"""
     
 
-    config_indentity()
+    config_creatif(n)
     grillage(n,taille)
-    #placement(n,taille)
+   
 
 
 def construction_terrain_stable(n,taille):
     """ construire un terrain stable à partir de plusieus fonctions"""
-    
-
     config_stable(n)
     grillage(n,taille)
-    #placement(n,taille)
 
+
+def construction_terrain_identity(n,taille):
+    """ construire un terrain nul à partir de plusieus fonctions"""
     
+
+    config_indentity(n)
+    grillage(n,taille)
+
+#########################################################################################################
+
 def ecoulement(n,taille):
     """simule un ecoulement en donnant a chaque case voisine un grain de sable si la case est surchargée"""
     global case_id, matrice , interupteur
@@ -176,21 +238,9 @@ def ecoulement(n,taille):
     if interupteur == 1:
         interupteur = 0
 
-                                     
-def configuration_geometrique(n):
-    """cree une configuration ou la case du centre est surcharger a matrice'infini et ne fait que donner des grains"""
-    global matrice, text
-    
-    matrice = []
-    for i in range(n):
-        a = []
-        for j in range(n):
-            if i == n//2 and j == n//2:
-                a.append(int(text.get()))
-            else:
-                a.append(0) 
-        matrice.append(list(a))
-
+   
+#########################################################################################################
+# sauvegarde
 #####################################################
 
 def copie():
@@ -218,8 +268,9 @@ def recuperation():
             b = []
     matrice = list(a)
     grillage(N,HEIGHT)
-    #placement(N,HEIGHT)
-#####################################################
+
+
+#########################################################################################################
 
 
 def stop():
@@ -230,6 +281,7 @@ def stop():
         interupteur = 1
     elif interupteur == 1:
         interupteur = 0
+
 
 def mode_player(event):
     """permet a matrice'utilisateur dedonner des grains de sable lui-meme"""
@@ -265,27 +317,9 @@ def coloriage():
             id += 1
 
 
-def config_creatif(n):
-    """permet de creer une configuration nul"""
-    global matrice 
-    matrice = []
-    for i in range(n):
-        a = []
-        for j in range(n):
-            a.append(0) 
-        matrice.append(list(a))
-
-
-def config_stable(n):
-    """permet de creer une configuration satble avec 4 grains par case"""
-    global matrice 
-    matrice = []
-    for i in range(n):
-        a = []
-        for j in range(n):
-            a.append(4) 
-        matrice.append(list(a))
-
+#########################################################################################################
+# operation
+#####################################################
 
 def addition():
     """additione la matrice actuelle a elle meme"""
@@ -305,27 +339,9 @@ def soustraction():
     coloriage()
 
 
-def config_indentity():
-    """soustrait la matrice actuelle a elle meme"""
-    global matrice
+##########################################################################################################
 
-    fic = open("identity.txt","r")
-    ligne = fic.readline()
-    N = int(ligne)
-    a = []
-    b= []
-    matrice1 = []
-    for i in fic:
-        b.append(int(i))
-        if len(b)==N:
-            a.append(b)
-            b = []
-    matrice1 = list(a)
 
-    for i in range (len(matrice)):
-        for j in range (len(matrice)):
-            matrice[i][j] = matrice[i][j] - matrice1[i][j]
-    coloriage()
 #########################################
 # programme principal
 racine = tk.Tk()
@@ -333,46 +349,62 @@ racine = tk.Tk()
 canvas = tk.Canvas(racine,width= WIDTH, height= HEIGHT, bg= "black")
 canvas.grid(column=3,row=0, rowspan= 20)
 
+##########################################################################################################
+# bouton creation de configuration
+##########################################################################################################
 
-bouton = tk.Button(racine,text="configuration random",command=  lambda : construction_terrain(ligne,HEIGHT))
-bouton.grid(column=0,row=0)
+boutonrandom = tk.Button(racine,text="configuration random",command=  lambda : construction_terrain(ligne,HEIGHT))
+boutonrandom.grid(column=0,row=0)
 
-bouton1 = tk.Button(racine,text="ecoulement",command=  lambda : ecoulement(ligne,HEIGHT))
-bouton1.grid(column=0,row=2)
+bouton_pile = tk.Button(racine, text="config pile",command= lambda : construction_terrain_geometrique(ligne,HEIGHT))
+bouton_pile.grid(column=1 , row= 0 )
 
-bouton2 = tk.Button(racine, text="sauvegarder",command= copie)
-bouton2.grid(column= 0, row= 3 )
+bouton_creatif = tk.Button(racine, text="mode creatif",command= lambda : construction_terrain_nul(ligne,HEIGHT))
+bouton_creatif.grid(column=2 , row= 0 )
 
-bouton3 = tk.Button(racine, text="charger",command= recuperation)
-bouton3.grid(column= 1, row= 3 )
+bouton_stable = tk.Button(racine, text=" config max stable",command= lambda : construction_terrain_stable(ligne,HEIGHT))
+bouton_stable.grid(column=0 , row= 1 )
 
-bouton4 = tk.Button(racine, text="stop",command= stop)
-bouton4.grid(column=1 , row= 2 , columnspan=1)
+bouton_identity = tk.Button(racine, text=" config identity",command= lambda : construction_terrain_identity(ligne,HEIGHT))
+bouton_identity.grid(column=1 , row= 1 )
 
-bouton5 = tk.Button(racine, text="config pile",command= lambda : construction_terrain_geometrique(ligne,HEIGHT))
-bouton5.grid(column=1 , row= 0 )
+##########################################################################################################
+# bouton fonctionalité
+#####################################################
 
-bouton6 = tk.Button(racine, text="mode creatif",command= lambda : construction_terrain_nul(ligne,HEIGHT))
-bouton6.grid(column=2 , row= 0 )
+bouton_ecoulement = tk.Button(racine,text="ecoulement",command=  lambda : ecoulement(ligne,HEIGHT))
+bouton_ecoulement.grid(column=0,row=2)
 
-bouton7 =  tk.Button(racine, text="Addition",command= addition)
-bouton7.grid(column=0, row= 4)
+bouton_sauvegarde = tk.Button(racine, text="sauvegarder",command= copie)
+bouton_sauvegarde.grid(column= 0, row= 3 )
 
-bouton8 =  tk.Button(racine, text="soustraction",command= soustraction)
-bouton8.grid(column=1, row= 4)
+bouton_charge = tk.Button(racine, text="charger",command= recuperation)
+bouton_charge.grid(column= 1, row= 3 )
 
-bouton9 = tk.Button(racine, text=" config max stable",command= lambda : construction_terrain_stable(ligne,HEIGHT))
-bouton9.grid(column=0 , row= 1 )
+bouton_stop = tk.Button(racine, text="stop",command= stop)
+bouton_stop.grid(column=1 , row= 2 , columnspan=1)
+
+bouton_addition =  tk.Button(racine, text="Addition",command= addition)
+bouton_addition.grid(column=0, row= 4)
+
+bouton_soustraction =  tk.Button(racine, text="soustraction",command= soustraction)
+bouton_soustraction.grid(column=1, row= 4)
+
+
+##########################################################################################################
+# label pour pouvoir recuperer la quantité de grain choisi par l'utilisateur pour la configuration pile
+#####################################################
+
 
 
 text = tk.StringVar()
 barre = tk.Entry(racine,textvariable= text)
 barre.grid(column=0,row= 6 , columnspan=2)
-bouton9 = tk.Label(racine, text="choisir les nombres de grains \n pour la config pile")
-bouton9.grid(column=2,row=6)
+label_info = tk.Label(racine, text="choisir les nombres de grains \n pour la config pile")
+label_info.grid(column=2,row=6)
 
 canvas.bind("<Button-1>",mode_player)
 racine.mainloop()
-#########################@
+##################################################
 # fin du code
 
