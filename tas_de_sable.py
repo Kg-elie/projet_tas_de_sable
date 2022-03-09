@@ -23,13 +23,13 @@ WIDTH = 600
 #########################################
 #  definitions des variables            #
 #########################################
-# coisir une ligne qui ne fit pas de decimale si l'on divise la taille par elle
-ligne =60
+# coisir une ligne qui ne fit pas de decimale si matrice'on divise la taille par elle
+ligne =100
 # matrice contenant les grain de sable pour chaque case
-l = []
+matrice = []
 # liste contenant les identifiants de chaque case
 case_id = []
-# permet de stopper l'ecoulement avec un systeme binaire(0;1)
+# permet de stopper matrice'ecoulement avec un systeme binaire(0;1)
 interupteur = 0
 
  
@@ -61,13 +61,13 @@ def grillage(n,taille):
 
 def configuration(n):
     """remplie la grille d'une configuration aléatoire"""
-    global l 
-    l = []
+    global matrice 
+    matrice = []
     for i in range(n):
         a = []
         for j in range(n):
             a.append(rd.randint(0,4))
-        l.append(list(a))
+        matrice.append(list(a))
 
           
 
@@ -77,7 +77,7 @@ def  placement(n,taille):
     x = 0
     y = 3
     
-    for i in l:
+    for i in matrice:
         x = 3
         for j in i:
             canvas.create_text((x+(rythme//2),y+(rythme//2)), text= j,fill="white")
@@ -108,59 +108,68 @@ def construction_terrain_nul(n,taille):
     """ construire un terrain nul à partir de plusieus fonctions"""
     
 
-    config_creatif(n)
+    config_indentity()
+    grillage(n,taille)
+    #placement(n,taille)
+
+
+def construction_terrain_stable(n,taille):
+    """ construire un terrain stable à partir de plusieus fonctions"""
+    
+
+    config_stable(n)
     grillage(n,taille)
     #placement(n,taille)
 
     
 def ecoulement(n,taille):
     """simule un ecoulement en donnant a chaque case voisine un grain de sable si la case est surchargée"""
-    global case_id, l , interupteur
+    global case_id, matrice , interupteur
 
-    for i in range(len(l)):
-        for j in range(len(l[i])):
-            if l[i][j]>= 4 and (j > 0) and (i > 0) and (j < n-1) and (i < n-1):
-                l[i][j] -= 4 
-                l[i-1][j] +=1 
-                l[i+1][j] += 1
-                l[i][j-1] += 1
-                l[i][j+1] += 1
-            elif l[i][j]>= 4 and (j == 0) and (i == 0):
-                l[i][j] -= 4 
-                l[i+1][j] += 1
-                l[i][j+1] += 1
-            elif l[i][j]>= 4 and  j == n-1 and i == n-1:
-                l[i][j] -= 2 
-                l[i-1][j] +=1 
-                l[i][j-1] += 1
-            elif l[i][j]>= 4 and j == 0 and i > 0  and i < n-1:
-                l[i][j] -= 4 
-                l[i-1][j] +=1 
-                l[i+1][j] += 1
-                l[i][j+1] += 1
-            elif l[i][j]>= 4 and j == 0 and i == n-1:
-                l[i][j] -= 4 
-                l[i-1][j] +=1 
-                l[i][j+1] += 1
-            elif l[i][j]>= 4 and i > 0 and j == n-1 and i < n-1:
-                l[i][j] -= 4 
-                l[i-1][j] +=1 
-                l[i][j-1] += 1
-                l[i+1][j] += 1
-            elif l[i][j]>= 4 and j > 0 and j < n-1 and i == n-1:
-                l[i][j] -= 4 
-                l[i-1][j] +=1 
-                l[i][j-1] += 1
-                l[i][j+1] += 1
-            elif l[i][j]>= 4 and j > 0 and i == 0 and j < n-1 :
-                l[i][j] -= 4 
-                l[i+1][j] += 1
-                l[i][j-1] += 1
-                l[i][j+1] += 1
-            elif l[i][j]>= 4 and j == n-1 and i == 0:
-                l[i][j] -= 4 
-                l[i+1][j] +=1 
-                l[i][j-1] += 1
+    for i in range(len(matrice)):
+        for j in range(len(matrice[i])):
+            if matrice[i][j]>= 4 and (j > 0) and (i > 0) and (j < n-1) and (i < n-1):
+                matrice[i][j] -= 4 
+                matrice[i-1][j] +=1 
+                matrice[i+1][j] += 1
+                matrice[i][j-1] += 1
+                matrice[i][j+1] += 1
+            elif matrice[i][j]>= 4 and (j == 0) and (i == 0):
+                matrice[i][j] -= 4 
+                matrice[i+1][j] += 1
+                matrice[i][j+1] += 1
+            elif matrice[i][j]>= 4 and  j == n-1 and i == n-1:
+                matrice[i][j] -= 2 
+                matrice[i-1][j] +=1 
+                matrice[i][j-1] += 1
+            elif matrice[i][j]>= 4 and j == 0 and i > 0  and i < n-1:
+                matrice[i][j] -= 4 
+                matrice[i-1][j] +=1 
+                matrice[i+1][j] += 1
+                matrice[i][j+1] += 1
+            elif matrice[i][j]>= 4 and j == 0 and i == n-1:
+                matrice[i][j] -= 4 
+                matrice[i-1][j] +=1 
+                matrice[i][j+1] += 1
+            elif matrice[i][j]>= 4 and i > 0 and j == n-1 and i < n-1:
+                matrice[i][j] -= 4 
+                matrice[i-1][j] +=1 
+                matrice[i][j-1] += 1
+                matrice[i+1][j] += 1
+            elif matrice[i][j]>= 4 and j > 0 and j < n-1 and i == n-1:
+                matrice[i][j] -= 4 
+                matrice[i-1][j] +=1 
+                matrice[i][j-1] += 1
+                matrice[i][j+1] += 1
+            elif matrice[i][j]>= 4 and j > 0 and i == 0 and j < n-1 :
+                matrice[i][j] -= 4 
+                matrice[i+1][j] += 1
+                matrice[i][j-1] += 1
+                matrice[i][j+1] += 1
+            elif matrice[i][j]>= 4 and j == n-1 and i == 0:
+                matrice[i][j] -= 4 
+                matrice[i+1][j] +=1 
+                matrice[i][j-1] += 1
     coloriage()
     if interupteur ==0 :
         racine.after(50,lambda : ecoulement(n,taille))
@@ -169,24 +178,26 @@ def ecoulement(n,taille):
 
                                      
 def configuration_geometrique(n):
-    """cree une configuration ou la case du centre est surcharger a l'infini et ne fait que donner des grains"""
-    global l 
-    l = []
+    """cree une configuration ou la case du centre est surcharger a matrice'infini et ne fait que donner des grains"""
+    global matrice, text
+    
+    matrice = []
     for i in range(n):
         a = []
         for j in range(n):
             if i == n//2 and j == n//2:
-                a.append(1300000)
+                a.append(int(text.get()))
             else:
                 a.append(0) 
-        l.append(list(a))
+        matrice.append(list(a))
 
+#####################################################
 
 def copie():
     """copie la matrice d'une configuration dans un fichier text"""
     fic = open("sauvegarde.txt","w")
-    fic.write(str(len(l)) + "\n"  )
-    for i in l:
+    fic.write(str(len(matrice)) + "\n"  )
+    for i in matrice:
         for j in i:
             fic.write(str(j) + "\n")
     fic.close
@@ -194,7 +205,7 @@ def copie():
 
 def recuperation():
     """permet de recuperer une configuration sauvegarder et la generer"""
-    global l
+    global matrice
     fic = open("sauvegarde.txt","r")
     ligne = fic.readline()
     N = int(ligne)
@@ -205,14 +216,14 @@ def recuperation():
         if len(b)==N:
             a.append(b)
             b = []
-    l = list(a)
+    matrice = list(a)
     grillage(N,HEIGHT)
     #placement(N,HEIGHT)
-    
+#####################################################
 
 
 def stop():
-    """permet de stopper l'ecoulement"""
+    """permet de stopper matrice'ecoulement"""
     global interupteur
 
     if interupteur == 0:
@@ -221,8 +232,8 @@ def stop():
         interupteur = 0
 
 def mode_player(event):
-    """permet a l'utilisateur dedonner des grains de sable lui-meme"""
-    global l
+    """permet a matrice'utilisateur dedonner des grains de sable lui-meme"""
+    global matrice
     j =canvas.find_closest(event.x,event.y)
     c = (j[0]-1)// ligne 
     r = (j[0]-1) % ligne 
@@ -232,14 +243,14 @@ def mode_player(event):
         if r > ligne:
             r = r - ligne
     
-    l[c][r] +=1
+    matrice[c][r] +=1
     coloriage()
     
 
 def coloriage():
     """permet d'attribuer une couleur a chaque case"""
     id = 0
-    for i in l:
+    for i in matrice:
         for j in i:
             if j == 0:
                 canvas.itemconfig(case_id[id], fill ="grey")
@@ -256,14 +267,65 @@ def coloriage():
 
 def config_creatif(n):
     """permet de creer une configuration nul"""
-    global l 
-    l = []
+    global matrice 
+    matrice = []
     for i in range(n):
         a = []
         for j in range(n):
             a.append(0) 
-        l.append(list(a))
+        matrice.append(list(a))
 
+
+def config_stable(n):
+    """permet de creer une configuration satble avec 4 grains par case"""
+    global matrice 
+    matrice = []
+    for i in range(n):
+        a = []
+        for j in range(n):
+            a.append(4) 
+        matrice.append(list(a))
+
+
+def addition():
+    """additione la matrice actuelle a elle meme"""
+    global matrice
+    for i in range (len(matrice)):
+        for j in range (len(matrice)):
+            matrice[i][j] = matrice[i][j] + matrice[i][j]
+    coloriage()
+
+
+def soustraction():
+    """soustrait la matrice actuelle a elle meme"""
+    global matrice
+    for i in range (len(matrice)):
+        for j in range (len(matrice)):
+            matrice[i][j] = matrice[i][j] - matrice[i][j]
+    coloriage()
+
+
+def config_indentity():
+    """soustrait la matrice actuelle a elle meme"""
+    global matrice
+
+    fic = open("identity.txt","r")
+    ligne = fic.readline()
+    N = int(ligne)
+    a = []
+    b= []
+    matrice1 = []
+    for i in fic:
+        b.append(int(i))
+        if len(b)==N:
+            a.append(b)
+            b = []
+    matrice1 = list(a)
+
+    for i in range (len(matrice)):
+        for j in range (len(matrice)):
+            matrice[i][j] = matrice[i][j] - matrice1[i][j]
+    coloriage()
 #########################################
 # programme principal
 racine = tk.Tk()
@@ -272,26 +334,42 @@ canvas = tk.Canvas(racine,width= WIDTH, height= HEIGHT, bg= "black")
 canvas.grid(column=3,row=0, rowspan= 20)
 
 
-bouton = tk.Button(racine,text="configuration aléatoire",command=  lambda : construction_terrain(ligne,HEIGHT))
+bouton = tk.Button(racine,text="configuration random",command=  lambda : construction_terrain(ligne,HEIGHT))
 bouton.grid(column=0,row=0)
 
 bouton1 = tk.Button(racine,text="ecoulement",command=  lambda : ecoulement(ligne,HEIGHT))
-bouton1.grid(column=0,row=1)
+bouton1.grid(column=0,row=2)
 
 bouton2 = tk.Button(racine, text="sauvegarder",command= copie)
-bouton2.grid(column= 0, row= 2 )
+bouton2.grid(column= 0, row= 3 )
 
 bouton3 = tk.Button(racine, text="charger",command= recuperation)
-bouton3.grid(column= 1, row= 2 )
+bouton3.grid(column= 1, row= 3 )
 
 bouton4 = tk.Button(racine, text="stop",command= stop)
-bouton4.grid(column=1 , row= 1 , columnspan=1)
+bouton4.grid(column=1 , row= 2 , columnspan=1)
 
-bouton5 = tk.Button(racine, text="config geometrique",command= lambda : construction_terrain_geometrique(ligne,HEIGHT))
+bouton5 = tk.Button(racine, text="config pile",command= lambda : construction_terrain_geometrique(ligne,HEIGHT))
 bouton5.grid(column=1 , row= 0 )
 
 bouton6 = tk.Button(racine, text="mode creatif",command= lambda : construction_terrain_nul(ligne,HEIGHT))
 bouton6.grid(column=2 , row= 0 )
+
+bouton7 =  tk.Button(racine, text="Addition",command= addition)
+bouton7.grid(column=0, row= 4)
+
+bouton8 =  tk.Button(racine, text="soustraction",command= soustraction)
+bouton8.grid(column=1, row= 4)
+
+bouton9 = tk.Button(racine, text=" config max stable",command= lambda : construction_terrain_stable(ligne,HEIGHT))
+bouton9.grid(column=0 , row= 1 )
+
+
+text = tk.StringVar()
+barre = tk.Entry(racine,textvariable= text)
+barre.grid(column=0,row= 6 , columnspan=2)
+bouton9 = tk.Label(racine, text="choisir les nombres de grains \n pour la config pile")
+bouton9.grid(column=2,row=6)
 
 canvas.bind("<Button-1>",mode_player)
 racine.mainloop()
