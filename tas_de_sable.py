@@ -58,6 +58,7 @@ def grillage(n,taille):
     
     coloriage()
 
+
 def configuration(n):
     """remplie la grille d'une configuration aléatoire"""
     global l 
@@ -86,6 +87,25 @@ def  placement(n,taille):
 
 def construction_terrain(n,taille):
     """ construire le terrain à partir de plusieus fonctions"""
+    
+
+    configuration(n)
+    grillage(n,taille)
+    #placement(n,taille)
+
+
+
+def construction_terrain_geometrique(n,taille):
+    """ construire un terrain geometrique à partir de plusieus fonctions"""
+    
+
+    configuration_geometrique(n)
+    grillage(n,taille)
+    #placement(n,taille)
+
+
+def construction_terrain_nul(n,taille):
+    """ construire un terrain nul à partir de plusieus fonctions"""
     
 
     config_creatif(n)
@@ -143,12 +163,11 @@ def ecoulement(n,taille):
                 l[i][j-1] += 1
     coloriage()
     if interupteur ==0 :
-        racine.after(500,lambda : ecoulement(n,taille))
+        racine.after(50,lambda : ecoulement(n,taille))
     if interupteur == 1:
         interupteur = 0
 
-                
-                        
+                                     
 def configuration_geometrique(n):
     """cree une configuration ou la case du centre est surcharger a l'infini et ne fait que donner des grains"""
     global l 
@@ -250,7 +269,7 @@ def config_creatif(n):
 racine = tk.Tk()
 
 canvas = tk.Canvas(racine,width= WIDTH, height= HEIGHT, bg= "black")
-canvas.grid(column=2,row=0, rowspan= 20)
+canvas.grid(column=3,row=0, rowspan= 20)
 
 
 bouton = tk.Button(racine,text="configuration aléatoire",command=  lambda : construction_terrain(ligne,HEIGHT))
@@ -263,11 +282,16 @@ bouton2 = tk.Button(racine, text="sauvegarder",command= copie)
 bouton2.grid(column= 0, row= 2 )
 
 bouton3 = tk.Button(racine, text="charger",command= recuperation)
-bouton3.grid(column= 0, row= 3 )
+bouton3.grid(column= 1, row= 2 )
 
 bouton4 = tk.Button(racine, text="stop",command= stop)
 bouton4.grid(column=1 , row= 1 , columnspan=1)
 
+bouton5 = tk.Button(racine, text="config geometrique",command= lambda : construction_terrain_geometrique(ligne,HEIGHT))
+bouton5.grid(column=1 , row= 0 )
+
+bouton6 = tk.Button(racine, text="mode creatif",command= lambda : construction_terrain_nul(ligne,HEIGHT))
+bouton6.grid(column=2 , row= 0 )
 
 canvas.bind("<Button-1>",mode_player)
 racine.mainloop()
