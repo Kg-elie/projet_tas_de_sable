@@ -13,16 +13,17 @@
 import tkinter as tk
 import random as rd
 
-
 #########################################
 # definitions des constantes            #
 #########################################
+
 HEIGHT = 600
 WIDTH = 600
 
 #########################################
 #  definitions des variables            #
 #########################################
+
 # coisir une ligne qui ne fit pas de decimale si matrice'on divise la taille par elle
 ligne =100
 # matrice contenant les grain de sable pour chaque case
@@ -32,10 +33,10 @@ case_id = []
 # permet de stopper matrice'ecoulement avec un systeme binaire(0;1)
 interupteur = 0
 
- 
 #########################################
 # definitions des fonctions             #
 #########################################
+
 def grillage(n,taille):
     """ cree une grille de n^2 case, et donne a chaque case une couleur selectionner en fonction du grain de sable qu'elle contient """
     global case_id
@@ -61,6 +62,7 @@ def grillage(n,taille):
 ##########################################################################################################
 # configuration
 #####################################################
+
 def configuration(n):
     """remplie la grille d'une configuration aléatoire"""
     global matrice 
@@ -135,9 +137,7 @@ def config_indentity(n):
 
 ##########################################################################################################
 
-
 ##########################################################################################################
-
 # construction des terrain 
 #####################################################
 
@@ -149,8 +149,6 @@ def construction_terrain(n,taille):
     grillage(n,taille)
    
 
-
-
 def construction_terrain_geometrique(n,taille):
     """ construire un terrain geometrique à partir de plusieus fonctions"""
     
@@ -159,7 +157,6 @@ def construction_terrain_geometrique(n,taille):
     grillage(n,taille)
    
 
-
 def construction_terrain_nul(n,taille):
     """ construire un terrain nul à partir de plusieus fonctions"""
     
@@ -167,7 +164,6 @@ def construction_terrain_nul(n,taille):
     config_creatif(n)
     grillage(n,taille)
    
-
 
 def construction_terrain_stable(n,taille):
     """ construire un terrain stable à partir de plusieus fonctions"""
@@ -238,7 +234,6 @@ def ecoulement(n,taille):
     if interupteur == 1:
         interupteur = 0
 
-   
 #########################################################################################################
 # sauvegarde
 #####################################################
@@ -268,7 +263,6 @@ def recuperation():
             b = []
     matrice = list(a)
     grillage(N,HEIGHT)
-
 
 #########################################################################################################
 
@@ -316,7 +310,6 @@ def coloriage():
                 canvas.itemconfig(case_id[id], fill="yellow")
             id += 1
 
-
 #########################################################################################################
 # operation
 #####################################################
@@ -341,9 +334,10 @@ def soustraction():
 
 ##########################################################################################################
 
-
 #########################################
-# programme principal
+# programme principal                   #
+#########################################
+
 racine = tk.Tk()
 
 canvas = tk.Canvas(racine,width= WIDTH, height= HEIGHT, bg= "black")
@@ -395,13 +389,13 @@ bouton_soustraction.grid(column=1, row= 4)
 # label pour pouvoir recuperer la quantité de grain choisi par l'utilisateur pour la configuration pile
 #####################################################
 
-
-
 text = tk.StringVar()
 barre = tk.Entry(racine,textvariable= text)
 barre.grid(column=0,row= 6 , columnspan=2)
 label_info = tk.Label(racine, text="choisir les nombres de grains \n pour la config pile")
 label_info.grid(column=2,row=6)
+
+##########################################################################################################
 
 canvas.bind("<Button-1>",mode_player)
 racine.mainloop()
