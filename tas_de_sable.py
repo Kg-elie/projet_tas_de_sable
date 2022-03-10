@@ -361,6 +361,8 @@ def soustraction():
     for i in range (len(matrice)):
         for j in range (len(matrice)):
             matrice[i][j] = matrice[i][j] - matrice1[i][j]
+            if matrice[i][j] < 0:
+                matrice[i][j] = 0
     coloriage()
 
 
@@ -371,7 +373,7 @@ def soustraction():
 #########################################
 
 racine = tk.Tk()
-
+racine.title("TAS DE SABLE")
 canvas = tk.Canvas(racine,width= WIDTH, height= HEIGHT, bg= "black")
 canvas.grid(column=3,row=0, rowspan= 20)
 
@@ -379,41 +381,41 @@ canvas.grid(column=3,row=0, rowspan= 20)
 # bouton creation de configuration
 ##########################################################################################################
 
-boutonrandom = tk.Button(racine,text="configuration random",command=  lambda : construction_terrain(ligne,HEIGHT))
+boutonrandom = tk.Button(racine,text="configuration random",command=  lambda : construction_terrain(ligne,HEIGHT), activeforeground="green")
 boutonrandom.grid(column=0,row=0)
 
-bouton_pile = tk.Button(racine, text="config pile",command= lambda : construction_terrain_geometrique(ligne,HEIGHT))
+bouton_pile = tk.Button(racine, text="config pile",command= lambda : construction_terrain_geometrique(ligne,HEIGHT), activeforeground="green")
 bouton_pile.grid(column=1 , row= 0 )
 
-bouton_creatif = tk.Button(racine, text="mode creatif",command= lambda : construction_terrain_nul(ligne,HEIGHT))
+bouton_creatif = tk.Button(racine, text="mode creatif",command= lambda : construction_terrain_nul(ligne,HEIGHT), activeforeground="green")
 bouton_creatif.grid(column=2 , row= 0 )
 
-bouton_stable = tk.Button(racine, text=" config max stable",command= lambda : construction_terrain_stable(ligne,HEIGHT))
+bouton_stable = tk.Button(racine, text=" config max stable",command= lambda : construction_terrain_stable(ligne,HEIGHT), activeforeground="green")
 bouton_stable.grid(column=0 , row= 1 )
 
-bouton_identity = tk.Button(racine, text=" config identity",command= lambda : construction_terrain_identity(ligne,HEIGHT))
+bouton_identity = tk.Button(racine, text=" config identity",command= lambda : construction_terrain_identity(ligne,HEIGHT), activeforeground="green")
 bouton_identity.grid(column=1 , row= 1 )
 
 ##########################################################################################################
 # bouton fonctionalité
 #####################################################
 
-bouton_ecoulement = tk.Button(racine,text="ecoulement",command=  lambda : ecoulement(ligne,HEIGHT))
+bouton_ecoulement = tk.Button(racine,text="ecoulement",command=  lambda : ecoulement(ligne,HEIGHT), activeforeground="green")
 bouton_ecoulement.grid(column=0,row=2)
 
-bouton_sauvegarde = tk.Button(racine, text="sauvegarder",command= copie)
+bouton_sauvegarde = tk.Button(racine, text="sauvegarder",command= copie, activeforeground="green")
 bouton_sauvegarde.grid(column= 0, row= 3 )
 
-bouton_charge = tk.Button(racine, text="charger",command= recuperation)
+bouton_charge = tk.Button(racine, text="charger",command= recuperation, activeforeground="green")
 bouton_charge.grid(column= 1, row= 3 )
 
-bouton_stop = tk.Button(racine, text="stop",command= stop)
+bouton_stop = tk.Button(racine, text="stop",command= stop, activeforeground="green")
 bouton_stop.grid(column=1 , row= 2 , columnspan=1)
 
-bouton_addition =  tk.Button(racine, text="Addition",command= addition)
+bouton_addition =  tk.Button(racine, text="Addition",command= addition, activeforeground="green")
 bouton_addition.grid(column=0, row= 4)
 
-bouton_soustraction =  tk.Button(racine, text="soustraction",command= soustraction)
+bouton_soustraction =  tk.Button(racine, text="soustraction",command= soustraction, activeforeground="green")
 bouton_soustraction.grid(column=1, row= 4)
 
 
@@ -422,10 +424,10 @@ bouton_soustraction.grid(column=1, row= 4)
 #####################################################
 
 text = tk.StringVar()
-barre = tk.Entry(racine,textvariable= text)
-barre.grid(column=0,row= 6 , columnspan=2)
-label_info = tk.Label(racine, text="choisir les nombres de grains \n pour la config pile")
-label_info.grid(column=2,row=6)
+barre = tk.Entry(racine,textvariable= text, bd= 3, highlightcolor= "green")
+barre.grid(column=2,row= 1 )
+label_info = tk.Label(racine, text="FONCTIONS BARRE DE RECHERCHE : \n -choisir les nombres de grains \n pour la config pile \n - nommer la configuration a sauvegarder \n - chercher une sauvegarde avec son nom", bd= 3, relief="ridge")
+label_info.grid(column=2,row=2)
 
 ##########################################################################################################
 
