@@ -240,7 +240,9 @@ def ecoulement(n,taille):
 
 def copie():
     """copie la matrice d'une configuration dans un fichier text"""
-    fic = open("sauvegarde.txt","w")
+    global text
+    titre = text.get() + ".txt"
+    fic = open(titre,"w")
     fic.write(str(len(matrice)) + "\n"  )
     for i in matrice:
         for j in i:
@@ -250,8 +252,9 @@ def copie():
 
 def recuperation():
     """permet de recuperer une configuration sauvegarder et la generer"""
-    global matrice
-    fic = open("sauvegarde.txt","r")
+    global matrice, text
+    titre = text.get() + ".txt"
+    fic = open(titre,"r")
     ligne = fic.readline()
     N = int(ligne)
     a = []
@@ -316,19 +319,48 @@ def coloriage():
 
 def addition():
     """additione la matrice actuelle a elle meme"""
-    global matrice
+    global matrice , text
+
+    titre = text.get() + ".txt"
+    fic = open(titre,"r")
+    ligne = fic.readline()
+    N = int(ligne)
+    a = []
+    b= []
+    matrice1 = []
+    for i in fic:
+        b.append(int(i))
+        if len(b)==N:
+            a.append(b)
+            b = []
+    matrice1 = list(a)
+
     for i in range (len(matrice)):
         for j in range (len(matrice)):
-            matrice[i][j] = matrice[i][j] + matrice[i][j]
+            matrice[i][j] = matrice[i][j] + matrice1[i][j]
     coloriage()
 
 
 def soustraction():
     """soustrait la matrice actuelle a elle meme"""
-    global matrice
+    global matrice , text
+    titre = text.get() + ".txt"
+    fic = open(titre,"r")
+    ligne = fic.readline()
+    N = int(ligne)
+    a = []
+    b= []
+    matrice1 = []
+    for i in fic:
+        b.append(int(i))
+        if len(b)==N:
+            a.append(b)
+            b = []
+    matrice1 = list(a)
+
     for i in range (len(matrice)):
         for j in range (len(matrice)):
-            matrice[i][j] = matrice[i][j] - matrice[i][j]
+            matrice[i][j] = matrice[i][j] - matrice1[i][j]
     coloriage()
 
 
