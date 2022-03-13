@@ -12,6 +12,7 @@
 
 import tkinter as tk
 import random as rd
+import tkinter.messagebox as tkm
 
 #########################################
 # definitions des constantes            #
@@ -36,6 +37,7 @@ interupteur = 0
 #########################################
 # definitions des fonctions             #
 #########################################
+
 
 def grillage(n,taille):
     """ cree une grille de n^2 case, et donne a chaque case une couleur selectionner en fonction du grain de sable qu'elle contient """
@@ -77,6 +79,9 @@ def configuration(n):
 def configuration_geometrique(n):
     """cree une configuration ou la case du centre est surcharger a matrice'infini et ne fait que donner des grains"""
     global matrice, text
+    if text.get() == '':
+        alerte = tkm.showwarning("attention", "veuiller entrer un nombre de grains a mettre dans la case centrale")
+        return
     
     matrice = []
     for i in range(n):
@@ -183,7 +188,7 @@ def construction_terrain_identity(n,taille):
 def ecoulement(n,taille):
     """simule un ecoulement en donnant a chaque case voisine un grain de sable si la case est surchargée"""
     global case_id, matrice , interupteur
-
+    arret = 0
     for i in range(len(matrice)):
         for j in range(len(matrice[i])):
             if matrice[i][j]>= 4 and (j > 0) and (i > 0) and (j < n-1) and (i < n-1):
@@ -192,43 +197,54 @@ def ecoulement(n,taille):
                 matrice[i+1][j] += 1
                 matrice[i][j-1] += 1
                 matrice[i][j+1] += 1
+                arret = 1
             elif matrice[i][j]>= 4 and (j == 0) and (i == 0):
                 matrice[i][j] -= 4 
                 matrice[i+1][j] += 1
                 matrice[i][j+1] += 1
+                arret = 1
             elif matrice[i][j]>= 4 and  j == n-1 and i == n-1:
                 matrice[i][j] -= 2 
                 matrice[i-1][j] +=1 
                 matrice[i][j-1] += 1
+                arret = 1
             elif matrice[i][j]>= 4 and j == 0 and i > 0  and i < n-1:
                 matrice[i][j] -= 4 
                 matrice[i-1][j] +=1 
                 matrice[i+1][j] += 1
                 matrice[i][j+1] += 1
+                arret = 1
             elif matrice[i][j]>= 4 and j == 0 and i == n-1:
                 matrice[i][j] -= 4 
                 matrice[i-1][j] +=1 
                 matrice[i][j+1] += 1
+                arret = 1
             elif matrice[i][j]>= 4 and i > 0 and j == n-1 and i < n-1:
                 matrice[i][j] -= 4 
                 matrice[i-1][j] +=1 
                 matrice[i][j-1] += 1
                 matrice[i+1][j] += 1
+                arret = 1
             elif matrice[i][j]>= 4 and j > 0 and j < n-1 and i == n-1:
                 matrice[i][j] -= 4 
                 matrice[i-1][j] +=1 
                 matrice[i][j-1] += 1
                 matrice[i][j+1] += 1
+                arret = 1
             elif matrice[i][j]>= 4 and j > 0 and i == 0 and j < n-1 :
                 matrice[i][j] -= 4 
                 matrice[i+1][j] += 1
                 matrice[i][j-1] += 1
                 matrice[i][j+1] += 1
+                arret = 1
             elif matrice[i][j]>= 4 and j == n-1 and i == 0:
                 matrice[i][j] -= 4 
                 matrice[i+1][j] +=1 
                 matrice[i][j-1] += 1
+                arret = 1
     coloriage()
+    if arret == 0:
+        return
     if interupteur ==0 :
         racine.after(50,lambda : ecoulement(n,taille))
     if interupteur == 1:
@@ -241,6 +257,12 @@ def ecoulement(n,taille):
 def copie():
     """copie la matrice d'une configuration dans un fichier text"""
     global text
+    if text.get() == '':
+        alerte = tkm.showwarning("attention", "veuiller entrer un titre pour la sauvegarde")
+        return
+    if text.get() == 'identity':
+        alerte = tkm.showwarning("attention", "ce nom de sauvegarde ne peut pas etre utilisée car neccessaire pour le fonctionnemnt du programme ")
+        return
     titre = text.get() + ".txt"
     fic = open(titre,"w")
     fic.write(str(len(matrice)) + "\n"  )
@@ -253,6 +275,9 @@ def copie():
 def recuperation():
     """permet de recuperer une configuration sauvegarder et la generer"""
     global matrice, text
+    if text.get() == '':
+        alerte = tkm.showwarning("attention", "veuiller entrer le nom de la sauvegarde")
+        return
     titre = text.get() + ".txt"
     fic = open(titre,"r")
     ligne = fic.readline()
@@ -320,7 +345,9 @@ def coloriage():
 def addition():
     """additione la matrice actuelle a elle meme"""
     global matrice , text
-
+    if text.get() == '':
+        alerte = tkm.showwarning("attention", "veuiller entrer le nom de la configuration a additioner")
+        return
     titre = text.get() + ".txt"
     fic = open(titre,"r")
     ligne = fic.readline()
@@ -344,6 +371,9 @@ def addition():
 def soustraction():
     """soustrait la matrice actuelle a elle meme"""
     global matrice , text
+    if text.get() == '':
+        alerte = tkm.showwarning("attention", "veuiller entrer le nom de la configuration a soutraire")
+        return
     titre = text.get() + ".txt"
     fic = open(titre,"r")
     ligne = fic.readline()
@@ -379,7 +409,7 @@ canvas.grid(column=3,row=0, rowspan= 20)
 
 ##########################################################################################################
 # bouton creation de configuration
-##########################################################################################################
+####################################################
 
 boutonrandom = tk.Button(racine,text="configuration random",command=  lambda : construction_terrain(ligne,HEIGHT), activeforeground="green")
 boutonrandom.grid(column=0,row=0)
@@ -420,7 +450,7 @@ bouton_soustraction.grid(column=1, row= 4)
 
 
 ##########################################################################################################
-# label pour pouvoir recuperer la quantité de grain choisi par l'utilisateur pour la configuration pile
+# barre de dialogue
 #####################################################
 
 text = tk.StringVar()
