@@ -25,13 +25,13 @@ WIDTH = 600
 #  definitions des variables            #
 #########################################
 
-# coisir une ligne qui ne fit pas de decimale si matrice'on divise la taille par elle
+# coisir une ligne qui ne fait pas de decimale si l'on divise la taille par elle
 ligne =100
 # matrice contenant les grain de sable pour chaque case
 matrice = []
 # liste contenant les identifiants de chaque case
 case_id = []
-# permet de stopper matrice'ecoulement avec un systeme binaire(0;1)
+# permet de stopper l'ecoulement avec un systeme binaire(0;1)
 interupteur = 0
 
 #########################################
@@ -77,7 +77,7 @@ def configuration(n):
 
 
 def configuration_geometrique(n):
-    """cree une configuration ou la case du centre est surcharger a matrice'infini et ne fait que donner des grains"""
+    """cree une configuration ou la case du centre a un nombre de grains donner par l'utilisateur"""
     global matrice, text
     if text.get() == '':
         alerte = tkm.showwarning("attention", "veuiller entrer un nombre de grains a mettre dans la case centrale")
@@ -117,7 +117,7 @@ def config_stable(n):
 
 
 def config_indentity(n):
-    """soustrait la matrice actuelle a elle meme"""
+    """cree une matrice qui donnera si la taille est de 100/100 une configuration identity"""
     global matrice
 
     fic = open("identity.txt","r")
@@ -186,7 +186,7 @@ def construction_terrain_identity(n,taille):
 #########################################################################################################
 
 def ecoulement(n,taille):
-    """simule un ecoulement en donnant a chaque case voisine un grain de sable si la case est surchargée"""
+    """simule un ecoulement en donnant a chaque case voisine un grain de sable si la case est instable"""
     global case_id, matrice , interupteur
     arret = 0
     for i in range(len(matrice)):
@@ -296,7 +296,7 @@ def recuperation():
 
 
 def stop():
-    """permet de stopper matrice'ecoulement"""
+    """permet de stopper l'ecoulement"""
     global interupteur
 
     if interupteur == 0:
@@ -306,7 +306,7 @@ def stop():
 
 
 def mode_player(event):
-    """permet a matrice'utilisateur dedonner des grains de sable lui-meme"""
+    """permet a l'utilisateur de donner des grains de sable lui-meme"""
     global matrice
     j =canvas.find_closest(event.x,event.y)
     c = (j[0]-1)// ligne 
