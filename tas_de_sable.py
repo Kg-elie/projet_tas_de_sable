@@ -465,4 +465,3 @@ canvas.bind("<Button-1>",mode_player)
 racine.mainloop()
 ##################################################
 # fin du code
-
